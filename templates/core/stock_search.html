@@ -42,11 +42,37 @@
                         <!--end of col-->
                     </div>
                     {% if stock_data %}
-                    {{stock_data}}
-                    {% if not stock_exists %}
-                    <a href="{% url 'add_to_wishlist' %}?links={{ stock_data|urlencode }}">Add to wishlist</a>
-                    {% else %}
-                    -   already added to wishlist
-                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Stock Name</th>
+                                <th >action</th>
+                                <th >action</th>
+                                <th >action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if not stock_data_response %}
+                                <tr>
+                                <td>{{stock_data}}</td>
+                                </tr>
+                             {% else %}   
+                                <tr>
+                                    <td>{{stock_data}}</td>
+                                    <td>
+                                    {% if not stock_exists %}
+                                    <a class="btn btn-warning" href="{% url 'add_to_wishlist' %}?links={{ stock_data|urlencode }}">Add to wishlist</a>
+                                    {% else %}
+                                    <a href="{% url 'wishlist' %}" class="btn btn-warning">Already added to wishlist</a>
+                                    {% endif %}
+                                    </td>
+                                    <td><a class="btn btn-primary" href="{% url 'add_to_portfolio' %}?portfolio={{ stock_data|urlencode }}">Add to Portfolio</a></td>
+                                    <td><a class="btn btn-secondary" href="#">View Details</a></td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
                     {% endif %}
 </div>

@@ -10,6 +10,7 @@ django = "*"
 nsetools = "*"
 request = "*"
 requests = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.7"

@@ -13,12 +13,14 @@
 						<div class="title">
 							<h4>{{stocks.stock}}</h4>
 						</div>
-                        {% for d in stock_last_data %}
+                        
 						<div class="text">
-							<span>Current Price - {{d.current_price}}</span>
+							<span>Bought Price - {{stocks.bought_price}}</span><br>
+							<span>quantity - {{stocks.quantity}}</span><br>
+							<span>total price - {{stocks.total_price}}</span>
 						</div>
-                        {% endfor %}
-						<a class="btn btn-success" href="#">Buy</a>
+                        
+						<a class="btn btn-success" href="#">Withdraw</a>
                         
 					 </div>
 				</div>	 
