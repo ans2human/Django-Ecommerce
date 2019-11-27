@@ -7,7 +7,7 @@ from .models import Stock, Wishlist, Portfolio, StockData
 from urllib.error import URLError
 nse = Nse()
 
-iex_Base = "https://cloud.iexapis.com/stable/stock/" 
+iex_Base = "https://cloud.iexapis.com/stable/stock/"
 iex_Token = "sk_0862eb49e31743088bcfd091a92771c2"
 
 
@@ -21,9 +21,9 @@ def iex_api_func(query):
     if query is not "None":
         iex_data = requests.get(iex_Base  + query + '/quote?token=' + iex_Token)
     else:
-        stock_data = None 
+        stock_data = None
         return stock_data
-    if iex_data:    
+    if iex_data:
         stock_data = iex_data.json()
         return stock_data
 
@@ -33,7 +33,7 @@ def nse_api_func(query):
         if query is not 'None':
             stock_data = nse.get_quote(query)
         else:
-            stock_data = None 
+            stock_data = None
         return stock_data
     except URLError:
             pass
@@ -68,16 +68,16 @@ def stock_search(request, **kwargs):
         else:
             cice = stock_data.get('iexRealtimePrice') if stock_data.get('iexRealtimePrice') else stock_data.get('basePrice')
             brie = stock_data.get('latestPrice') if stock_data.get('latestPrice') else stock_data.get('lastPrice')
-            updt = timezone.now() 
+            updt = timezone.now()
             StockData.objects.create(stock_meta=aa, current_price=cice, base_price=brie, updated_at=updt)
-            
-            
+
+
             if Wishlist.objects.filter(user=request.user, stock=aa).exists():
                 context = {'stock_data':aa, 'stock_exists':"True", 'stock_data_response':True}
             else:
                 context = {'stock_data':aa, "stock_data_response": True}
     else:
-        context = { 
+        context = {
                     'stock_data':"No data Available, Please check the Symbol",
                     'stock_data_response':False
                     }
@@ -109,8 +109,9 @@ def add_to_portfolio(request):
 
 def user_portfolio(request):
     qs  = Portfolio.objects.filter(user=request.user)
-    return render(request, 'core/portfolio.html',{'qs':qs})   
+    return render(request, 'core/portfolio.html',{'qs':qs})
 
+#wishlist function
 def wishlist(request):
     qs = Wishlist.objects.filter(user=request.user)
     for q in qs:
