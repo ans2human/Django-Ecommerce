@@ -5,7 +5,7 @@ from .models import Wishlist, Stock, StockData, Portfolio
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
-    list_display = ('stock_name', 'created_at', 'updated_at', 'created_by')
+    list_display = ('stock_name', 'company_name',  'created_at', 'updated_at', 'created_by')
 
 
 
