@@ -1,0 +1,5 @@
+django
+nsetools
+request
+requests
+ipython

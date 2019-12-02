@@ -105,6 +105,7 @@ def add_to_portfolio(request):
         'bought_price': int(bought_price_query.base_price)
     }
     Portfolio.objects.create(**portfolio_data)
+    #send mail
     return redirect('user_portfolio')
 
 def user_portfolio(request):
@@ -117,3 +118,13 @@ def wishlist(request):
     for q in qs:
         stock_last_data = StockData.objects.filter(stock_meta=q.stock)
     return render(request, 'core/wishlist.html',{'qs':qs, "stock_last_data":stock_last_data})
+
+
+# TODO: report generation based on date filter
+# TODO: analytics dashboard
+# TODO: portfolio
+
+
+
+
+# idea
