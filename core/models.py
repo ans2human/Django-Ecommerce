@@ -35,3 +35,19 @@ class Portfolio(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+
+
+EMAIL_TYPES = (
+    ("WM", "Welcome mail"),
+    ("PM", "portfolio mail"),
+    ("WSM", "Wishlist mail"),
+    ("PRM", "Password Reset mail"),
+)
+
+
+
+
+class EmailTemplate(models.Model):
+    email_template = models.TextField(max_length=50000)
+    email_template_name = models.CharField(max_length=250)
+    email_type = models.CharField(choices=EMAIL_TYPES, max_length=10)

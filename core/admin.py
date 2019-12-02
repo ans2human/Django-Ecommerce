@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Wishlist, Stock, StockData, Portfolio
+from .models import Wishlist, Stock, StockData, Portfolio, EmailTemplate
 # Register your models here.
 
 
@@ -23,3 +23,8 @@ class PortfolioAdmin(admin.ModelAdmin):
 @admin.register(StockData)
 class StockDataAdmin(admin.ModelAdmin):
     list_display = ('stock_meta', 'base_price', 'current_price', 'created_at', 'updated_at')
+
+
+@admin.register(EmailTemplate)
+class EmailTemplateAdmin(admin.ModelAdmin):
+    list_display = ('email_type', 'email_template_name')
