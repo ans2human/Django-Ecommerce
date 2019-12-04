@@ -46,6 +46,7 @@
                         <table class="table">
                         <thead>
                             <tr>
+                                <th>Logo</th>
                                 <th>Stock Name</th>
                                 <th >action</th>
                                 <th >action</th>
@@ -55,10 +56,12 @@
                             <tbody>
                             {% if not stock_data_response %}
                                 <tr>
+                                <td><img src="{{stock_data.stock_image}}" alt="{{stocks.stock}}"></td>
                                 <td>{{stock_data}}</td>
                                 </tr>
                              {% else %}   
                                 <tr>
+                                    <td><img src="{{stock_data.stock_image}}" alt="{{stocks.stock}}"></td>
                                     <td>{{stock_data}}</td>
                                     <td>
                                     {% if not stock_exists %}

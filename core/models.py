@@ -5,6 +5,7 @@ from django.conf import settings
 
 
 class Stock(models.Model):
+    stock_image = models.URLField()
     stock_name = models.CharField(max_length=15)
     company_name = models.CharField(max_length=25)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,7 +32,7 @@ class Portfolio(models.Model):
 
     def total_price(self):
         return self.bought_price * self.quantity
-        
+
 class Wishlist(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)

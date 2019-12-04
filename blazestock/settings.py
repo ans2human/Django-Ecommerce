@@ -52,6 +52,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blazestock.urls'
 
+
+# PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+# print("PROJECT_ROOT>>>>>>>>>>", PROJECT_ROOT)
+# print("Base_ROOT>>>>>>>>>>", BASE_DIR)
+EMAIL_TEMP = os.path.join(BASE_DIR, "templates")
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -143,3 +150,4 @@ EMAIL_HOST_PASSWORD = "tarun@123"
 
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR,'received-mails')
+
