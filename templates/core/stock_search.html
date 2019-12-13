@@ -58,11 +58,13 @@
                                 <tr>
                                 <td><img src="{{stock_data.stock_image}}" alt="{{stocks.stock}}"></td>
                                 <td>{{stock_data}}</td>
+                                <td>{{stock_data.company_name}}</td>
                                 </tr>
-                             {% else %}   
+                             {% else %}
                                 <tr>
                                     <td><img src="{{stock_data.stock_image}}" alt="{{stocks.stock}}"></td>
                                     <td>{{stock_data}}</td>
+                                    <td>{{stock_data.company_name}}</td>
                                     <td>
                                     {% if not stock_exists %}
                                     <a class="btn btn-warning" href="{% url 'add_to_wishlist' %}?links={{ stock_data|urlencode }}">Add to wishlist</a>

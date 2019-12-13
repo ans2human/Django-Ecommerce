@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'core' %}/assets/css/add_portfolio.css">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Book Now</h5>
+                <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+
+            </div>
+            <div class="card-block">
+                <div class="j-wrapper j-wrapper-640">
+                    <form  method="POST">
+                      {% csrf_token %}
+                      <div>
+                      {{form.as_p}}
+                      </div>
+                      <p>
+                        <span>Total Price : </span>
+                        <span id="id_total_price">0</span>
+                      </p>
+
+                        <input type="submit" name="submit">
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

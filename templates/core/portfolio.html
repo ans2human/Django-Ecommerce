@@ -2,28 +2,43 @@
 
 {% block content %}
 
-     	<div class="row">
-             {% for stocks in qs %}
-			    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-               
-					<div class="box-part text-center">
-                        
-                        <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-                        
-						<div class="title">
-							<h4>{{stocks.stock}}</h4>
-						</div>
-                        
-						<div class="text">
-							<span>Bought Price - {{stocks.bought_price}}</span><br>
-							<span>quantity - {{stocks.quantity}}</span><br>
-							<span>total price - {{stocks.total_price}}</span>
-						</div>
-                        
-						<a class="btn btn-success" href="#">Withdraw</a>
-                        
-					 </div>
-				</div>	 
-				 {% endfor %}
-		</div>
+
+<div class="card">
+  <div class="card-header">
+      <h5>Basic Table</h5>
+      <span>Portfolio</span>
+
+</div>
+  <div class="card-block table-border-style">
+      <div class="table-responsive">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>title</th>
+                      <th>quantity</th>
+                      <th>Total Price</th>
+                      <th>Current Price</th>
+                      <th>Gain %</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                 {% for stocks in qs %}
+                  <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{stocks.stock__stock_name}}</td>
+                      <td>{{stocks.quantity__sum}}</td>
+                      <td>{{stocks.tcp}}</td>
+                      <td>{{stocks.stock_c_price}}</td>
+                      <td>{{stocks.gain_percent}}</td>
+                      <td><a class="btn btn-primary" href="#">Withdraw</a></td>
+                  </tr>
+                  {% endfor %}
+           </tbody>
+          </table>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

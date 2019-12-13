@@ -30,15 +30,24 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+BACKEND_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core'
-]
+]    
+    
+LOCAL_APPS = [
+    'core',
+    'crm.apps.CrmConfig'    #<---- this is location based
+    #'crm'                  #<---- by default django is going to find crm folder, then apps.py and then the clss, all this 
+                            #functiuonality is written in backend with refernce to INSTRALLED_APPS
+]   
+
+INSTALLED_APPS = BACKEND_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
