@@ -20,11 +20,22 @@ iex_Token = "sk_0862eb49e31743088bcfd091a92771c2"
 
 def user_portfolio_dashboard(request):
     if request.user.is_authenticated:
-        no_of_bought_stocks = Portfolio.objects.filter(
-            user=request.user).count()
-
+        common_qs = Portfolio.objects.filter(user=request.user)
+        no_of_bought_stocks = common_qs.count()
+        total_holding_amt = Portfolio.objects.aggregate(tcp=Sum(F('quantity')*F('bought_price')))
+        total_stock_holding_amt_var = 0
+        for portfolio_stocks in common_qs:
+            stock_cr_price = iex_api_func(portfolio_stocks.stock.stock_name) if iex_api_func(portfolio_stocks.stock.stock_name) else nse_api_func(portfolio_stocks.stock.stock_name)   # current stock price from iex or nse
+            stock_c_price = stock_cr_price.get('iexRealtimePrice') if stock_cr_price.get('iexRealtimePrice') else stock_cr_price.get('basePrice') or stock_cr_price.get('latestPrice')
+            per_stock_holding_amt = stock_c_price * portfolio_stocks.quantity
+            print(portfolio_stocks.stock.stock_name, stock_c_price, portfolio_stocks.quantity)
+            total_stock_holding_amt_var += per_stock_holding_amt
+        total_profit = total_stock_holding_amt_var - total_holding_amt.get('tcp')
         context = {
-            "no_of_bought_stocks": no_of_bought_stocks
+            "no_of_bought_stocks": no_of_bought_stocks,
+            "total_holding_amt" : total_holding_amt.get('tcp'),
+            'total_stock_holding_amt_var': total_stock_holding_amt_var,
+            "total_profit" : round(total_profit, 2)
         }
         return render(request, 'core/home.html', context)
     else:
@@ -151,9 +162,10 @@ def add_to_portfolio(request):
 
 @login_required()
 def user_portfolio(request):
-    qs = Portfolio.objects.values("stock__stock_name").annotate(Sum('quantity'), tcp=Sum(F('quantity')*F('bought_price')))
+    qs = Portfolio.objects.values("stock__stock_name").annotate(Sum('quantity'), tcp=Sum(F('quantity')*F('bought_price'))) # summation of single stock with multiple purchases
     for stock_name in qs:
-        stock_cr_price = iex_api_func(stock_name.get('stock__stock_name')) if iex_api_func(stock_name.get('stock__stock_name')) else nse_api_func(stock_name.get('stock__stock_name'))
+        # stock_name.get('stock__stock_name')   <- ticker coming from stock_name for loop
+        stock_cr_price = iex_api_func(stock_name.get('stock__stock_name')) if iex_api_func(stock_name.get('stock__stock_name')) else nse_api_func(stock_name.get('stock__stock_name'))   # current stock price from iex or nse
         stock_c_price = stock_cr_price.get('iexRealtimePrice') if stock_cr_price.get('iexRealtimePrice') else stock_cr_price.get('basePrice') or stock_cr_price.get('latestPrice')
         qnty = int(stock_name.get('quantity__sum'))
         dtcp = float(stock_name.get('tcp'))
@@ -178,6 +190,7 @@ def wishlist(request):
         return render(request, 'core/wishlist.html')
 
 
+
 def search_st_aj_func(request):
     query = request.GET.get('search', "None")
     print("query", query)
@@ -199,11 +212,10 @@ def search_stock_ajax(request):
 
 # TODO: report generation based on date filter
 # TODO: analytics dashboard
-# TODO: portfolio
+# TODO: portfolio - done
 # TODO: Suppose we search TCS and IEX has some IPO called the consulting services then the user will be confused with the response
 # as he wished to see indian TCS and got some american company. SO new fucntionality should be something like listing of IPOs from both
 # the platform if they exist.
-
-
+# matplotlib in this project
 # YES ITS POSSIBLE TO WRITE PYTHON SCRIPT AND CONVERT IT AS EXE
 # NOW THE TASK IS HOW TO INSTALL PWA WITH PYTHON SCRIPT

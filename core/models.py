@@ -3,8 +3,6 @@ from django.conf import settings
 # Create your models here.
 
 
-
-
 class Stock(models.Model):
     stock_image = models.URLField()
     stock_name = models.CharField(max_length=15)

@@ -13,6 +13,7 @@ request = "*"
 requests = "*"
 ipython = "*"
 django-environ = "*"
+pycountry = "*"
 
 [requires]
 python_version = "3.7"
