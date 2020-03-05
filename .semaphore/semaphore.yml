@@ -27,7 +27,6 @@ blocks:
       jobs:
         - name: Unit tests
           commands:
-            - cd Django-Stocks-Platform
             - python manage.py makemigrations
             - python manage.py migrate
             - python manage.py test
